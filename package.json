@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "start": "node .",
-    "dev": "nodeman start"
+    "dev": "nodemon start"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
