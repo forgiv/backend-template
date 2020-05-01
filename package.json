@@ -2,14 +2,16 @@
   "name": "backend-template",
   "version": "0.1.0",
   "description": "A simple backend express template",
-  "main": "src/server.js",
+  "main": "./dist/server.js",
   "repository": "https://github.com/forgiv/backend-template",
   "author": "Hiram Cruz <hiram0101@gmail.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
+    "prestart": "npm run build",
     "start": "node .",
-    "dev": "nodemon start"
+    "dev": "nodemon start",
+    "build": "./node_modules/typescript/bin/tsc"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -24,6 +26,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "typescript": "^3.8.3"
   }
 }
