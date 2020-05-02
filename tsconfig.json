@@ -9,6 +9,7 @@
         "noImplicitAny": true,
         "outDir": "./dist",
         "allowJs": true,
+        "experimentalDecorators": true,
         "paths": {
             "*": [
                 "node_modules/*"

@@ -1,10 +1,10 @@
-const { Strategy: LocalStrategy } = require('passport-local')
-const User = require('../models/user')
+import { Strategy as LocalStrategy } from 'passport-local'
+import User, { User as IUser } from '../models/user'
 
-const localStrategy = new LocalStrategy((username, password, done) => {
-    let user
-    User.findOne({username})
-        .then(_user => {
+const localStrategy = new LocalStrategy((username: string, password: string, done: Function) => {
+    let user: IUser
+    User.findOne({ username })
+        .then((_user: IUser) => {
             user = _user
             if (!user) {
                 return Promise.reject({
@@ -18,7 +18,7 @@ const localStrategy = new LocalStrategy((username, password, done) => {
         .then(() => {
             return user.validatePassword(password)
         })
-        .then(isValid => {
+        .then((isValid: Boolean) => {
             if (!isValid) {
                 return Promise.reject({
                     reason: 'LoginError',
@@ -29,7 +29,7 @@ const localStrategy = new LocalStrategy((username, password, done) => {
             }
             return done(null, user)
         })
-        .catch(err => {
+        .catch((err: any) => {
             if (err.reason !== 'LoginError') {
                 return done(null, false)
             }
@@ -37,4 +37,4 @@ const localStrategy = new LocalStrategy((username, password, done) => {
         })
 })
 
-module.exports = localStrategy
+export default localStrategy

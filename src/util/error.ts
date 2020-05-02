@@ -1,4 +1,4 @@
-export class Error {
+export default class Error {
     message: string
     status: number
 
