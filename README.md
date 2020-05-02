@@ -6,6 +6,7 @@ Required environment variables:
  * JWT_SECRET  
  * MONGODB_URI  
  * PORT  
+ * DB_NAME
 
 Optional environment variables:  
  * JWT_EXPIRY  
