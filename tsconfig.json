@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "ES6",
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "removeComments": true,
+        "noImplicitAny": true,
+        "outDir": "./dist",
+        "allowJs": true,
+        "experimentalDecorators": true,
+        "paths": {
+            "*": [
+                "node_modules/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ]
+}

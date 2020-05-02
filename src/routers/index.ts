@@ -1,7 +1,7 @@
-const authRouter = require('./auth')
-const userRouter = require('./user')
+import authRouter from './auth'
+import userRouter from './user'
 
-module.exports = [
+export default [
     {
         path: '/api',
         routes: authRouter
