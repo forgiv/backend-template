@@ -1,39 +1,30 @@
 import { Request, Response, Router } from "express"
-import User, { User as IUser} from '../models/user'
+import { User } from '../entities/user'
 import Error from '../util/error'
+import { server } from '../index'
 
 const router = Router()
 
-router.get('/:id', (req: Request, res: Response, next: Function) => {
+router.get('/:id', async (req: Request, res: Response, next: Function) => {
     const { id } = req.params
 
-    User.findById(id)
-        .then((user: IUser) => {
-            res.json(user)
-        })
-        .catch((err: any) => next(err))
+    try {
+        const user = await server.orm.em.findOneOrFail(User, id)
+        res.json(user)
+    } catch (err) {
+        next(err)
+    }
 })
 
-router.post('/', (req: Request, res: Response, next: Function) => {
-    const user = { username: req.body.username, password: req.body.password }
-
-    User.hashPassword(user.password)
-        .then((hash: string) => {
-            user.password = hash
-            return User.create(user)
-        })
-        .then((user: IUser) => {
-            return res
-                .status(201)
-                .location(`${req.originalUrl}/${user.id}`)
-                .json(user)
-        })
-        .catch((err: any) => {
-            if (err.code === 11000) {
-                err = new Error('Username already exists', 422)
-            }
-            next(err)
-        })
+router.post('/', async (req: Request, res: Response, next: Function) => {
+    try {
+        let user = new User(req.body.username, req.body.password)
+        await server.orm.em.persistAndFlush(user)
+        user = await server.orm.em.findOneOrFail(User, { username: user.username })
+        res.status(201).location(`${req.originalUrl}/${user.id}`).json(user)
+    } catch (err) {
+        next(err)
+    }
 })
 
 export default router

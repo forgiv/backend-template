@@ -1,21 +1,28 @@
 import bcrypt from 'bcryptjs'
-import { Entity, PrimaryKey, SerializedPrimaryKey, Property } from 'mikro-orm'
+import { Entity, PrimaryKey, SerializedPrimaryKey, Property, Unique } from 'mikro-orm'
 import { ObjectID } from 'mongodb'
 
 @Entity()
 export class User {
 
     @PrimaryKey()
-    _id: ObjectID
+    _id!: ObjectID
 
     @SerializedPrimaryKey()
-    id: string
+    id!: string
 
     @Property()
-    username: string
+    @Unique()
+    username!: string
 
     @Property()
-    password: string
+    password!: string
+
+    @Property()
+    createdAt = new Date()
+
+    @Property({ onUpdate: () => new Date() })
+    updatedAt = new Date()
 
     constructor(username: string, password: string) {
         this.username = username

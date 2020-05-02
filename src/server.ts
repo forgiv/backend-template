@@ -53,9 +53,11 @@ export default class Server {
         // Initialize ORM
         this.orm = await MikroORM.init({
             entitiesDirs: ['./dist/entities'],
+            entitiesDirsTs: ['./src/entities'],
             dbName: process.env.DB_NAME,
             type: 'mongo',
             clientUrl: process.env.MONGODB_URI,
+            ensureIndexes: true,
         })
 
         // Mount on App
