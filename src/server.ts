@@ -1,15 +1,19 @@
-require('dotenv').config() // Setting environment variables
+import { resolve } from 'path'
 
-const express = require('express')
-const mongoose = require('mongoose')
-const morgan = require('morgan')
-const passport = require('passport')
-const cors = require('cors')
+import { config } from 'dotenv'
+config({ path: resolve(__dirname, '../.env') })
 
-const localStrategy = require('./passport/local')
-const jwtStrategy = require('./passport/jwt')
+import express from 'express'
+import mongoose from 'mongoose'
+import morgan from 'morgan'
+import passport from 'passport'
+import cors from 'cors'
 
-const routers = require('./routers')
+import localStrategy from './passport/local'
+import jwtStrategy from './passport/jwt'
+
+import routers from './routers'
+import { Error } from './util/error'
 
 // Mounting strategies
 passport.use(localStrategy)
@@ -35,19 +39,18 @@ app.use(
 app.use(express.json())
 
 // Routers portion
-for (router of routers) {
+for (const router of routers) {
     app.use(router.path, router.routes)
 }
 
 // Catch-all 404
 app.use((req, res, next) => {
-    const err = new Error('Not Found')
-    err.status = 404
+    const err = new Error('Not Found', 404)
     next(err)
 })
 
 // Catch-all Error
-app.use((err, req, res, next) => {
+app.use((err: Error, req: express.Request, res: express.Response, next: Function) => {
     console.log(`${err.status || 500}: ${err.message}`)
     res.status(err.status || 500)
     res.json({
