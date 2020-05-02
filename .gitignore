@@ -5,3 +5,4 @@ package-lock.json
 
 # folders
 node_modules/
+dist/
