@@ -1,6 +1,5 @@
 import { Request, Response, Router } from "express"
 import { User } from '../entities/user'
-import Error from '../util/error'
 import { server } from '../index'
 
 const router = Router()
