@@ -1,7 +1,8 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
+import * as appConfig from '../../config/app'
 
 const options = {
-    secretOrKey: process.env.JWT_SECRET,
+    secretOrKey: appConfig.JWT_SECRET,
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     algorithms: ['HS256']
 }

@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "prestart": "./node_modules/typescript/bin/tsc",
     "start": "node .",
     "dev": "./node_modules/typescript/bin/tsc --watch",
     "build": "./node_modules/typescript/bin/tsc"

@@ -10,6 +10,8 @@ import jwtStrategy from './passport/jwt'
 import routers from './routers'
 import Error from './util/error'
 
+import * as appConfig from '../config/app'
+
 export default class Server {
     app: Express
     orm: MikroORM
@@ -32,16 +34,12 @@ export default class Server {
         this.app = express()
 
         // Setting CORS
-        this.app.use(
-            process.env.NODE_ENV === 'development'
-            ? cors()
-            : cors({ origin: process.env.CLIENT_ORIGIN })
-        )
+        this.app.use(appConfig.NODE_ENV === 'development' ? cors() : cors({ origin: appConfig.CLIENT_ORIGIN }))
 
         // Setting Morgan for logging
         this.app.use(
-            morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', { 
-                skip: () => process.env.NODE_ENV === 'test' 
+            morgan(appConfig.NODE_ENV === 'development' ? 'dev' : 'common', { 
+                skip: () => appConfig.NODE_ENV === 'test' 
             })
         )
 
@@ -54,9 +52,9 @@ export default class Server {
         this.orm = await MikroORM.init({
             entitiesDirs: ['./dist/entities'],
             entitiesDirsTs: ['./src/entities'],
-            dbName: process.env.DB_NAME,
+            dbName: appConfig.MONGODB_NAME,
             type: 'mongo',
-            clientUrl: process.env.MONGODB_URI,
+            clientUrl: appConfig.MONGODB_URI,
             ensureIndexes: true,
         })
 
@@ -91,7 +89,7 @@ export default class Server {
 
     startApp() {
         // Start server
-        this.app.listen(process.env.PORT, function() { console.info(`Server listening on port ${this.address().port}`) })
+        this.app.listen(appConfig.PORT, function() { console.info(`Server listening on port ${this.address().port}`) })
             .on('error', err => console.error(err))
     }
 }

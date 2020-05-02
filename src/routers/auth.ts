@@ -1,13 +1,14 @@
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import { Router, Request, Response } from 'express'
+import * as appConfig from '../../config/app'
 
 const router = Router()
 
 const createAuthToken = (user: any) => {
-    return jwt.sign({ user }, process.env.JWT_SECRET, {
+    return jwt.sign({ user }, appConfig.JWT_SECRET, {
         subject: user.username,
-        expiresIn: process.env.JWT_EXPIRY || '7d'
+        expiresIn: appConfig.JWT_EXPIRY,
     })
 }
 
