@@ -9,8 +9,8 @@
   "private": true,
   "scripts": {
     "prestart": "cross-env ./node_modules/typescript/bin/tsc",
-    "start": "cross-env-shell node .",
-    "dev": "cross-env-shell ./node_modules/typescript/bin/tsc --watch",
+    "start": "cross-env node .",
+    "dev": "cross-env ./node_modules/typescript/bin/tsc --watch",
     "build": "cross-env ./node_modules/typescript/bin/tsc"
   },
   "dependencies": {
