@@ -16,9 +16,9 @@ export default class Server {
     app: Express
     orm: MikroORM
 
-    constructor() {
+    async init() {
         this.setupExpress()
-        this.setupORM()
+        await this.setupORM()
         this.setupPassport()
         this.mountRoutes()
     }
@@ -49,14 +49,19 @@ export default class Server {
 
     async setupORM() {
         // Initialize ORM
-        this.orm = await MikroORM.init({
-            entitiesDirs: ['./dist/entities'],
-            entitiesDirsTs: ['./src/entities'],
-            dbName: appConfig.MONGODB_NAME,
-            type: 'mongo',
-            clientUrl: appConfig.MONGODB_URI,
-            ensureIndexes: true,
-        })
+        try {
+            this.orm = await MikroORM.init({
+                entitiesDirs: ['./dist/entities'],
+                entitiesDirsTs: ['./src/entities'],
+                dbName: appConfig.MONGODB_NAME,
+                type: 'mongo',
+                clientUrl: appConfig.MONGODB_URI,
+                ensureIndexes: true,
+            })
+        } catch {
+            console.log('Error initializing database connection. Are you sure your db is started?')
+            process.exit(1)
+        }
 
         // Mount on App
         this.app.use((req: express.Request, res: express.Response, next: any) => {

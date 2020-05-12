@@ -7,4 +7,10 @@ import Server from './server'
 
 export const server = new Server()
 
-server.startApp()
+// Hack to make app wait for db connection before starting
+async function startApp() {
+    await server.init()
+    server.startApp()
+}
+
+startApp()
