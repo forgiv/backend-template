@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     // Server
     PORT: process.env.PORT || 3000,
 

@@ -1,7 +1,7 @@
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import { Router, Request, Response } from 'express'
-import * as appConfig from '../../config/app'
+import appConfig from '../config/app'
 
 const router = Router()
 

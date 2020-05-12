@@ -1,5 +1,5 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
-import * as appConfig from '../../config/app'
+import appConfig from '../config/app'
 
 const options = {
     secretOrKey: appConfig.JWT_SECRET,

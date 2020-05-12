@@ -10,7 +10,7 @@ import jwtStrategy from './passport/jwt'
 import routers from './routers'
 import Error from './util/error'
 
-import * as appConfig from '../config/app'
+import appConfig from './config/app'
 
 export default class Server {
     app: Express
