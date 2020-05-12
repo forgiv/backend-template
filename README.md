@@ -4,6 +4,7 @@ This template is written in [TypeScipt](https://www.typescriptlang.org/)
 
 Included Packages:
  - [CORS](https://github.com/expressjs/cors): CORS middleware
+ - [cross-env](https://github.com/kentcdodds/cross-env): Cross compatible npm scripts
  - [dotenv](https://github.com/motdotla/dotenv): Processing .env files
  - [ExpressJS](https://expressjs.com/): Server framework
  - [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken): JWT signing/verifying
