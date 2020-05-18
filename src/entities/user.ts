@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 import { Entity, PrimaryKey, SerializedPrimaryKey, Property, Unique } from 'mikro-orm'
 import { ObjectID } from 'mongodb'
 
-@Entity()
+@Entity({ tableName: 'users' })
 export class User {
 
     @PrimaryKey()
@@ -15,7 +15,7 @@ export class User {
     @Unique()
     username!: string
 
-    @Property()
+    @Property({ hidden: true })
     password!: string
 
     @Property()
